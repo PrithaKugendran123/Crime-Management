@@ -77,7 +77,7 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Prompt user for incident details
+                
                 Console.Write("Enter Incident Type: ");
                 string incidentType = Console.ReadLine();
 
@@ -111,7 +111,7 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
                     SuspectID = suspectId
                 };
 
-                // Call the service method to create the incident
+               
                 bool result = crimeService.CreateIncident(newIncident);
 
                 // Display result
@@ -127,17 +127,17 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Implement logic to get incident ID and new status from the user
+               
                 Console.Write("Enter Incident ID: ");
                 int incidentId = int.Parse(Console.ReadLine());
 
                 Console.Write("Enter New Status: ");
                 string newStatus = Console.ReadLine();
 
-                // Call the UpdateIncidentStatus method
+               
                 bool result = crimeService.UpdateIncidentStatus(incidentId, newStatus);
 
-                // Display the result
+               
                 if (result)
                     Console.WriteLine("Incident status updated successfully!");
                 else
@@ -153,22 +153,22 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Implement logic to get start and end dates from the user
+               
                 Console.Write("Enter Start Date (MM/DD/YYYY): ");
                 DateTime startDate = DateTime.Parse(Console.ReadLine());
 
                 Console.Write("Enter End Date (MM/DD/YYYY): ");
                 DateTime endDate = DateTime.Parse(Console.ReadLine());
 
-                // Call the GetIncidentsInDateRange method
+              
                 IEnumerable<Incident> incidents = crimeService.GetIncidentsInDateRange(startDate, endDate);
 
-                // Display the retrieved incidents
+              
                 Console.WriteLine("Incidents within the specified date range:");
                 foreach (var incident in incidents)
                 {
-                    Console.WriteLine($"Incident ID: {incident.IncidentID}, Type: {incident.IncidentType}, Date: {incident.IncidentDate}");
-                    // Display other incident properties as needed
+                    Console.WriteLine($"Incident ID: {incident.IncidentID}, Type: {incident.IncidentType}, Date: {incident.IncidentDate},Location: {incident.Location}, Description: {incident.Description}, status: {incident.status}, Victim ID: {incident.VictimID}, Suspect ID: {incident.SuspectID}");
+                    
                 }
             }
             catch (Exception ex)
@@ -180,19 +180,19 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Implement logic to get search criteria from the user
+               
                 Console.Write("Enter search criteria: ");
                 string criteria = Console.ReadLine();
 
-                // Call the SearchIncidents method
+                
                 IEnumerable<Incident> incidents = crimeService.SearchIncidents(criteria);
 
-                // Display the search results
+               
                 Console.WriteLine($"Search results for criteria '{criteria}':");
                 foreach (var incident in incidents)
                 {
-                    Console.WriteLine($"Incident ID: {incident.IncidentID}, Type: {incident.IncidentType}, Date: {incident.IncidentDate}");
-                    // Display other incident properties as needed
+                    Console.WriteLine($"Incident ID: {incident.IncidentID}, Type: {incident.IncidentType}, Date: {incident.IncidentDate}, Location: {incident.Location}, Description: {incident.Description}, status: {incident.status}, Victim ID: {incident.VictimID}, Suspect ID: {incident.SuspectID");
+                   
                 }
             }
             catch (Exception ex)
@@ -205,7 +205,7 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Implement logic to get case details from the user
+              
                 Console.Write("Enter Case Description: ");
                 string caseDescription = Console.ReadLine();
 
@@ -216,10 +216,10 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
                     Console.Write("Invalid input. Please enter a valid Incident ID: ");
                 }
 
-                // Call the CreateCase method
+                
                 Case newCase = crimeService.CreateCase(caseDescription, incidentId);
 
-                // Display the result
+                
                 if (newCase != null)
                     Console.WriteLine($"Case created successfully! Case ID: {newCase.CaseID}");
                 else
@@ -234,7 +234,7 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Implement logic to get case ID from the user
+               
                 Console.Write("Enter Case ID: ");
                 int caseId;
                 while (!int.TryParse(Console.ReadLine(), out caseId))
@@ -242,14 +242,14 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
                     Console.Write("Invalid input. Please enter a valid Case ID: ");
                 }
 
-                // Call the GetCaseDetails method
+                
                 Case caseDetails = crimeService.GetCaseDetails(caseId);
 
-                // Display the case details
+                
                 if (caseDetails != null)
                 {
                     Console.WriteLine($"Case ID: {caseDetails.CaseID}, Description: {caseDetails.CaseDescription}, Incident ID: {caseDetails.IncidentID}");
-                    // Display other case properties as needed
+                    
                 }
                 else
                 {
@@ -265,7 +265,7 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Implement logic to get updated case details from the user
+                
                 Console.Write("Enter Case ID to update: ");
                 int caseId;
                 while (!int.TryParse(Console.ReadLine(), out caseId))
@@ -276,19 +276,18 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
                 Console.Write("Enter updated Case Description: ");
                 string updatedCaseDescription = Console.ReadLine();
 
-                // Create an updated Case object with the user-provided details
+               
                 Case updatedCase = new Case
                 {
                     CaseID = caseId,
                     CaseDescription = updatedCaseDescription
-                    // Set other case properties based on user input
-                    // ...
+                   
                 };
 
-                // Call the UpdateCaseDetails method
+              
                 bool result = crimeService.UpdateCaseDetails(updatedCase);
 
-                // Display the result
+               
                 if (result)
                     Console.WriteLine("Case details updated successfully!");
                 else
@@ -303,16 +302,16 @@ namespace CrimeAnalysisReportingSystem.ConsoleApp
         {
             try
             {
-                // Call the GetAllCases method
+               
                 IEnumerable<Case> cases = crimeService.GetAllCases();
 
-                // Display all cases
+            
                 if (cases != null && cases.Any())
                 {
                     foreach (var caseObj in cases)
                     {
                         Console.WriteLine($"Case ID: {caseObj.CaseID}, Description: {caseObj.CaseDescription}, Incident ID: {caseObj.IncidentID}");
-                        // Display other case properties as needed
+                        
                     }
                 }
                 else
