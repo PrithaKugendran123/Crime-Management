@@ -39,6 +39,11 @@ namespace CrimeAnalysisReportingSystem.Dao
                     return rowsAffected > 0;
                 }
             }
+            catch(SqlException e)
+            {
+                Console.WriteLine("The given ID is already present in the database ",e.Message);
+            }
+
             catch (Exception ex)
             {
                 // Handle exceptions (e.g., log the error, throw custom exception)
